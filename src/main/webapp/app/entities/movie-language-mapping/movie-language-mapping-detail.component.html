@@ -1,0 +1,35 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="movieLanguageMapping">
+            <h2><span>Movie Language Mapping</span> {{movieLanguageMapping.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Movie</span></dt>
+                <dd>
+                    <div *ngIf="movieLanguageMapping.movieId">
+                        <a [routerLink]="['/movie', movieLanguageMapping.movieId, 'view']">{{movieLanguageMapping.movieTitle}}</a>
+                    </div>
+                </dd>
+                <dt><span>Language</span></dt>
+                <dd>
+                    <div *ngIf="movieLanguageMapping.languageId">
+                        <a [routerLink]="['/language', movieLanguageMapping.languageId, 'view']">{{movieLanguageMapping.languageCode}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/movie-language-mapping', movieLanguageMapping.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

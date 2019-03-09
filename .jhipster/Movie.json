@@ -1,0 +1,70 @@
+{
+    "name": "Movie",
+    "fields": [
+        {
+            "fieldName": "title",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 100
+        },
+        {
+            "fieldName": "year",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": 1900
+        },
+        {
+            "fieldName": "released",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "runtime",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "plot",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "poster",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "rating",
+            "fieldType": "BigDecimal"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "rated",
+            "otherEntityName": "rated",
+            "otherEntityField": "code",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "movie"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "production",
+            "otherEntityName": "production",
+            "otherEntityField": "code",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "movie"
+        }
+    ],
+    "changelogDate": "20190309185154",
+    "entityTableName": "movie",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

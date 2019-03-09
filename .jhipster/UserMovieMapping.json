@@ -1,0 +1,36 @@
+{
+    "name": "UserMovieMapping",
+    "fields": [],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "login",
+            "otherEntityRelationshipName": "userMovieMapping"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "movie",
+            "otherEntityName": "movie",
+            "otherEntityField": "title",
+            "otherEntityRelationshipName": "userMovieMapping"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "movieStatus",
+            "otherEntityName": "movieStatus",
+            "otherEntityField": "code",
+            "otherEntityRelationshipName": "userMovieMapping"
+        }
+    ],
+    "changelogDate": "20190309185202",
+    "entityTableName": "user_movie_mapping",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

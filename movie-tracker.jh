@@ -1,0 +1,72 @@
+entity Movie{
+    title String required maxlength(100)
+    year Integer required min(1900)
+    released Instant
+    runtime Integer
+    plot String
+    poster String
+    rating BigDecimal
+}
+
+entity People{
+    name String required minlength(2) maxlength(50)
+}
+
+entity Role{
+    code String required
+}
+
+entity Language{
+    code String required
+}
+entity Production {
+    code String required
+}
+
+entity Rated{
+    code String required
+}
+
+entity Genre{
+    code String required
+}
+
+entity MovieStatus {
+    code String required
+}
+
+entity UserMovieMapping {
+}
+
+entity MovieLanguageMapping{
+}
+
+entity MovieGenreMapping{
+}
+
+entity MoviePeopleRoleMapping{
+}
+
+relationship ManyToOne {
+    UserMovieMapping{user(login)} to User
+    UserMovieMapping{movie(title)} to Movie
+    UserMovieMapping{movieStatus(code)} to MovieStatus
+    MovieLanguageMapping{movie(title)} to Movie
+    MovieLanguageMapping{language(code)} to Language
+    MovieGenreMapping{genre(code)} to Genre
+    MovieGenreMapping{movie(title)} to Movie
+    MoviePeopleRoleMapping{people(name)} to People
+    MoviePeopleRoleMapping{movie(title)} to Movie
+    MoviePeopleRoleMapping{role(code)} to Role
+}
+
+relationship OneToOne {
+    Movie{rated(code)} to Rated
+    Movie{production(code)} to Production
+}
+
+
+// --> configure generators
+dto all with mapstruct
+paginate all with pagination
+service all with serviceImpl

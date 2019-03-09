@@ -1,0 +1,29 @@
+{
+    "name": "MovieLanguageMapping",
+    "fields": [],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "movie",
+            "otherEntityName": "movie",
+            "otherEntityField": "title",
+            "otherEntityRelationshipName": "movieLanguageMapping"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "language",
+            "otherEntityName": "language",
+            "otherEntityField": "code",
+            "otherEntityRelationshipName": "movieLanguageMapping"
+        }
+    ],
+    "changelogDate": "20190309185203",
+    "entityTableName": "movie_language_mapping",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

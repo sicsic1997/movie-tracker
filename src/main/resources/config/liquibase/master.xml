@@ -5,6 +5,23 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190309185154_added_entity_Movie.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190309185155_added_entity_People.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190309185156_added_entity_Role.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190309185157_added_entity_Language.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190309185158_added_entity_Production.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190309185159_added_entity_Rated.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190309185200_added_entity_Genre.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190309185201_added_entity_MovieStatus.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190309185202_added_entity_UserMovieMapping.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190309185203_added_entity_MovieLanguageMapping.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190309185204_added_entity_MovieGenreMapping.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190309185205_added_entity_MoviePeopleRoleMapping.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20190309185154_added_entity_constraints_Movie.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190309185202_added_entity_constraints_UserMovieMapping.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190309185203_added_entity_constraints_MovieLanguageMapping.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190309185204_added_entity_constraints_MovieGenreMapping.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190309185205_added_entity_constraints_MoviePeopleRoleMapping.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

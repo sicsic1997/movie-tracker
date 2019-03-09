@@ -1,0 +1,29 @@
+{
+    "name": "MovieGenreMapping",
+    "fields": [],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "genre",
+            "otherEntityName": "genre",
+            "otherEntityField": "code",
+            "otherEntityRelationshipName": "movieGenreMapping"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "movie",
+            "otherEntityName": "movie",
+            "otherEntityField": "title",
+            "otherEntityRelationshipName": "movieGenreMapping"
+        }
+    ],
+    "changelogDate": "20190309185204",
+    "entityTableName": "movie_genre_mapping",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

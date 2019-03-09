@@ -1,0 +1,36 @@
+{
+    "name": "MoviePeopleRoleMapping",
+    "fields": [],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "people",
+            "otherEntityName": "people",
+            "otherEntityField": "name",
+            "otherEntityRelationshipName": "moviePeopleRoleMapping"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "movie",
+            "otherEntityName": "movie",
+            "otherEntityField": "title",
+            "otherEntityRelationshipName": "moviePeopleRoleMapping"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "role",
+            "otherEntityName": "role",
+            "otherEntityField": "code",
+            "otherEntityRelationshipName": "moviePeopleRoleMapping"
+        }
+    ],
+    "changelogDate": "20190309185205",
+    "entityTableName": "movie_people_role_mapping",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

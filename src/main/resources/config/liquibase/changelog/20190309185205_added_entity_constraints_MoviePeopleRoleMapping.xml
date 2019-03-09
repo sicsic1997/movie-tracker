@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity MoviePeopleRoleMapping.
+    -->
+    <changeSet id="20190309185205-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="people_id"
+                                 baseTableName="movie_people_role_mapping"
+                                 constraintName="fk_movie_people_role_mapping_people_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="people"/>
+
+        <addForeignKeyConstraint baseColumnNames="movie_id"
+                                 baseTableName="movie_people_role_mapping"
+                                 constraintName="fk_movie_people_role_mapping_movie_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="movie"/>
+
+        <addForeignKeyConstraint baseColumnNames="role_id"
+                                 baseTableName="movie_people_role_mapping"
+                                 constraintName="fk_movie_people_role_mapping_role_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="role"/>
+
+    </changeSet>
+</databaseChangeLog>

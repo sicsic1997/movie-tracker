@@ -1,0 +1,41 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="moviePeopleRoleMapping">
+            <h2><span>Movie People Role Mapping</span> {{moviePeopleRoleMapping.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>People</span></dt>
+                <dd>
+                    <div *ngIf="moviePeopleRoleMapping.peopleId">
+                        <a [routerLink]="['/people', moviePeopleRoleMapping.peopleId, 'view']">{{moviePeopleRoleMapping.peopleName}}</a>
+                    </div>
+                </dd>
+                <dt><span>Movie</span></dt>
+                <dd>
+                    <div *ngIf="moviePeopleRoleMapping.movieId">
+                        <a [routerLink]="['/movie', moviePeopleRoleMapping.movieId, 'view']">{{moviePeopleRoleMapping.movieTitle}}</a>
+                    </div>
+                </dd>
+                <dt><span>Role</span></dt>
+                <dd>
+                    <div *ngIf="moviePeopleRoleMapping.roleId">
+                        <a [routerLink]="['/role', moviePeopleRoleMapping.roleId, 'view']">{{moviePeopleRoleMapping.roleCode}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/movie-people-role-mapping', moviePeopleRoleMapping.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
