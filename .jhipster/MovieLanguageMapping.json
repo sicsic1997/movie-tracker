@@ -7,7 +7,7 @@
             "relationshipName": "movie",
             "otherEntityName": "movie",
             "otherEntityField": "title",
-            "otherEntityRelationshipName": "movieLanguageMapping"
+            "otherEntityRelationshipName": "languageList(code)"
         },
         {
             "relationshipType": "many-to-one",

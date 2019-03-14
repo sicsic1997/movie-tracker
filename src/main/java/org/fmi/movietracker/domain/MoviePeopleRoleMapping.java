@@ -27,7 +27,7 @@ public class MoviePeopleRoleMapping implements Serializable {
     private People people;
 
     @ManyToOne
-    @JsonIgnoreProperties("moviePeopleRoleMappings")
+    @JsonIgnoreProperties("peopleList(name)S")
     private Movie movie;
 
     @ManyToOne

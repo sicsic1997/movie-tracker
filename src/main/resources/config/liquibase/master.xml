@@ -32,4 +32,7 @@
     <include file="config/liquibase/changelog/20190314161905_populate_entity_Role.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190314161906_populate_entity_Production.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190314161907_populate_entity_Movie.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190314161908_populate_entity_MovieLanguageMapping.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190314161909_populate_entity_MovieGenreMapping.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190314161910_populate_entity_MoviePeopleRoleMapping.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

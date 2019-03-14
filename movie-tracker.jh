@@ -51,12 +51,12 @@ relationship ManyToOne {
     UserMovieMapping{user(login)} to User
     UserMovieMapping{movie(title)} to Movie
     UserMovieMapping{movieStatus(code)} to MovieStatus
-    MovieLanguageMapping{movie(title)} to Movie
+    MovieLanguageMapping{movie(title)} to Movie{languageList(code)}
     MovieLanguageMapping{language(code)} to Language
     MovieGenreMapping{genre(code)} to Genre
-    MovieGenreMapping{movie(title)} to Movie
+    MovieGenreMapping{movie(title)} to Movie{genreList(code)}
     MoviePeopleRoleMapping{people(name)} to People
-    MoviePeopleRoleMapping{movie(title)} to Movie
+    MoviePeopleRoleMapping{movie(title)} to Movie{peopleList(name)}
     MoviePeopleRoleMapping{role(code)} to Role
     Movie{rated(code)} to Rated
     Movie{production(code)} to Production

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="GETDATE()" dbms="mssql"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <changeSet id="20190314161909-0" author="vlad.coteanu">
+        <addColumn tableName="movie_genre_mapping">
+            <column name="movie_title" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+        </addColumn>
+        <addColumn tableName="movie_genre_mapping">
+            <column name="genre_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20190314161909-1" author="vlad.coteanu">
+        <output>Loading movie genre mapping data</output>
+        <ext:loadData encoding="UTF-8"
+                      file="config/liquibase/movie_genre_mapping.csv"
+                      separator="^"
+                      identityInsertEnabled="true"
+                      tableName="movie_genre_mapping">
+            <column name="id" type="NUMERIC"/>
+        </ext:loadData>
+    </changeSet>
+
+    <changeSet id="20190314161909-2" author="vlad.coteanu">
+    <sql endDelimiter="\nGO"
+         splitStatements="true"
+         stripComments="true">
+        UPDATE [dbo].[movie_genre_mapping]
+        SET genre_id = (SELECT id FROM [dbo].[genre] where genre.code = [dbo].[movie_genre_mapping].genre_code)
+    </sql>
+    </changeSet>
+
+    <changeSet id="20190314161909-3" author="vlad.coteanu">
+        <sql endDelimiter="\nGO"
+             splitStatements="true"
+             stripComments="true">
+            UPDATE [dbo].[movie_genre_mapping]
+            SET movie_id = (SELECT id FROM [dbo].[movie] where movie.title = [dbo].[movie_genre_mapping].movie_title)
+        </sql>
+    </changeSet>
+
+    <changeSet id="20190314161909-4" author="vlad.coteanu">
+        <dropColumn
+            columnName="genre_code"
+            schemaName="dbo"
+            tableName="movie_genre_mapping"/>
+        <dropColumn
+            columnName="movie_title"
+            schemaName="dbo"
+            tableName="movie_genre_mapping"/>
+    </changeSet>
+
+</databaseChangeLog>

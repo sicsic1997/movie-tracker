@@ -1,6 +1,7 @@
 package org.fmi.movietracker.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -8,6 +9,8 @@ import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -57,6 +60,12 @@ public class Movie implements Serializable {
     @JsonIgnoreProperties("movies")
     private Production production;
 
+    @OneToMany(mappedBy = "movie")
+    private Set<MovieLanguageMapping> languageLists = new HashSet<>();
+    @OneToMany(mappedBy = "movie")
+    private Set<MovieGenreMapping> genreLists = new HashSet<>();
+    @OneToMany(mappedBy = "movie")
+    private Set<MoviePeopleRoleMapping> peopleLists = new HashSet<>();
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -181,6 +190,81 @@ public class Movie implements Serializable {
 
     public void setProduction(Production production) {
         this.production = production;
+    }
+
+    public Set<MovieLanguageMapping> getLanguageLists() {
+        return languageLists;
+    }
+
+    public Movie languageLists(Set<MovieLanguageMapping> movieLanguageMappings) {
+        this.languageLists = movieLanguageMappings;
+        return this;
+    }
+
+    public Movie addLanguageList(MovieLanguageMapping movieLanguageMapping) {
+        this.languageLists.add(movieLanguageMapping);
+        movieLanguageMapping.setMovie(this);
+        return this;
+    }
+
+    public Movie removeLanguageList(MovieLanguageMapping movieLanguageMapping) {
+        this.languageLists.remove(movieLanguageMapping);
+        movieLanguageMapping.setMovie(null);
+        return this;
+    }
+
+    public void setLanguageLists(Set<MovieLanguageMapping> movieLanguageMappings) {
+        this.languageLists = movieLanguageMappings;
+    }
+
+    public Set<MovieGenreMapping> getGenreLists() {
+        return genreLists;
+    }
+
+    public Movie genreLists(Set<MovieGenreMapping> movieGenreMappings) {
+        this.genreLists = movieGenreMappings;
+        return this;
+    }
+
+    public Movie addGenreList(MovieGenreMapping movieGenreMapping) {
+        this.genreLists.add(movieGenreMapping);
+        movieGenreMapping.setMovie(this);
+        return this;
+    }
+
+    public Movie removeGenreList(MovieGenreMapping movieGenreMapping) {
+        this.genreLists.remove(movieGenreMapping);
+        movieGenreMapping.setMovie(null);
+        return this;
+    }
+
+    public void setGenreLists(Set<MovieGenreMapping> movieGenreMappings) {
+        this.genreLists = movieGenreMappings;
+    }
+
+    public Set<MoviePeopleRoleMapping> getPeopleLists() {
+        return peopleLists;
+    }
+
+    public Movie peopleLists(Set<MoviePeopleRoleMapping> moviePeopleRoleMappings) {
+        this.peopleLists = moviePeopleRoleMappings;
+        return this;
+    }
+
+    public Movie addPeopleList(MoviePeopleRoleMapping moviePeopleRoleMapping) {
+        this.peopleLists.add(moviePeopleRoleMapping);
+        moviePeopleRoleMapping.setMovie(this);
+        return this;
+    }
+
+    public Movie removePeopleList(MoviePeopleRoleMapping moviePeopleRoleMapping) {
+        this.peopleLists.remove(moviePeopleRoleMapping);
+        moviePeopleRoleMapping.setMovie(null);
+        return this;
+    }
+
+    public void setPeopleLists(Set<MoviePeopleRoleMapping> moviePeopleRoleMappings) {
+        this.peopleLists = moviePeopleRoleMappings;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

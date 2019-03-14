@@ -23,7 +23,7 @@ public class MovieLanguageMapping implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JsonIgnoreProperties("movieLanguageMappings")
+    @JsonIgnoreProperties("languageList(code)S")
     private Movie movie;
 
     @ManyToOne

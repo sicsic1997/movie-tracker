@@ -115,6 +115,34 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'movie',
                 loadChildren: './movie/movie.module#MovieTrackerMovieModule'
+            },
+            {
+                path: 'movie',
+                loadChildren: './movie/movie.module#MovieTrackerMovieModule'
+            },
+            {
+                path: 'movie-language-mapping',
+                loadChildren: './movie-language-mapping/movie-language-mapping.module#MovieTrackerMovieLanguageMappingModule'
+            },
+            {
+                path: 'movie-genre-mapping',
+                loadChildren: './movie-genre-mapping/movie-genre-mapping.module#MovieTrackerMovieGenreMappingModule'
+            },
+            {
+                path: 'movie-people-role-mapping',
+                loadChildren: './movie-people-role-mapping/movie-people-role-mapping.module#MovieTrackerMoviePeopleRoleMappingModule'
+            },
+            {
+                path: 'movie-language-mapping',
+                loadChildren: './movie-language-mapping/movie-language-mapping.module#MovieTrackerMovieLanguageMappingModule'
+            },
+            {
+                path: 'movie-genre-mapping',
+                loadChildren: './movie-genre-mapping/movie-genre-mapping.module#MovieTrackerMovieGenreMappingModule'
+            },
+            {
+                path: 'movie-people-role-mapping',
+                loadChildren: './movie-people-role-mapping/movie-people-role-mapping.module#MovieTrackerMoviePeopleRoleMappingModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])

@@ -14,7 +14,7 @@
             "relationshipName": "movie",
             "otherEntityName": "movie",
             "otherEntityField": "title",
-            "otherEntityRelationshipName": "movieGenreMapping"
+            "otherEntityRelationshipName": "genreList(code)"
         }
     ],
     "changelogDate": "20190309185204",

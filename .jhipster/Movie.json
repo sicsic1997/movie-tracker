@@ -58,6 +58,24 @@
             "otherEntityName": "production",
             "otherEntityField": "code",
             "otherEntityRelationshipName": "movie"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "languageList",
+            "otherEntityName": "movieLanguageMapping",
+            "otherEntityRelationshipName": "movie"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "genreList",
+            "otherEntityName": "movieGenreMapping",
+            "otherEntityRelationshipName": "movie"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "peopleList",
+            "otherEntityName": "moviePeopleRoleMapping",
+            "otherEntityRelationshipName": "movie"
         }
     ],
     "changelogDate": "20190309185154",

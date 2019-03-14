@@ -1,3 +1,7 @@
+import { IMovieLanguageMapping } from 'app/shared/model/movie-language-mapping.model';
+import { IMovieGenreMapping } from 'app/shared/model/movie-genre-mapping.model';
+import { IMoviePeopleRoleMapping } from 'app/shared/model/movie-people-role-mapping.model';
+
 export interface IMovie {
     id?: number;
     title?: string;
@@ -11,6 +15,9 @@ export interface IMovie {
     ratedId?: number;
     productionCode?: string;
     productionId?: number;
+    languageLists?: IMovieLanguageMapping[];
+    genreLists?: IMovieGenreMapping[];
+    peopleLists?: IMoviePeopleRoleMapping[];
 }
 
 export class Movie implements IMovie {
@@ -26,6 +33,9 @@ export class Movie implements IMovie {
         public ratedCode?: string,
         public ratedId?: number,
         public productionCode?: string,
-        public productionId?: number
+        public productionId?: number,
+        public languageLists?: IMovieLanguageMapping[],
+        public genreLists?: IMovieGenreMapping[],
+        public peopleLists?: IMoviePeopleRoleMapping[]
     ) {}
 }

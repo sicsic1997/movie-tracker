@@ -19,6 +19,9 @@ public interface MovieMapper extends EntityMapper<MovieDTO, Movie> {
 
     @Mapping(source = "ratedId", target = "rated")
     @Mapping(source = "productionId", target = "production")
+    @Mapping(target = "languageLists", ignore = true)
+    @Mapping(target = "genreLists", ignore = true)
+    @Mapping(target = "peopleLists", ignore = true)
     Movie toEntity(MovieDTO movieDTO);
 
     default Movie fromId(Long id) {

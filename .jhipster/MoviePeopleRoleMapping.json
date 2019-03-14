@@ -14,7 +14,7 @@
             "relationshipName": "movie",
             "otherEntityName": "movie",
             "otherEntityField": "title",
-            "otherEntityRelationshipName": "moviePeopleRoleMapping"
+            "otherEntityRelationshipName": "peopleList(name)"
         },
         {
             "relationshipType": "many-to-one",

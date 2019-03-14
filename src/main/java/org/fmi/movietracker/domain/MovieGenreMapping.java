@@ -27,7 +27,7 @@ public class MovieGenreMapping implements Serializable {
     private Genre genre;
 
     @ManyToOne
-    @JsonIgnoreProperties("movieGenreMappings")
+    @JsonIgnoreProperties("genreList(code)S")
     private Movie movie;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
