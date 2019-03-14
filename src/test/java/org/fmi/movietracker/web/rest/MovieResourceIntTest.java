@@ -26,8 +26,6 @@ import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 
@@ -49,11 +47,11 @@ public class MovieResourceIntTest {
     private static final String DEFAULT_TITLE = "AAAAAAAAAA";
     private static final String UPDATED_TITLE = "BBBBBBBBBB";
 
-    private static final Integer DEFAULT_YEAR = 1900;
-    private static final Integer UPDATED_YEAR = 1901;
+    private static final Integer DEFAULT_YEAR = 1;
+    private static final Integer UPDATED_YEAR = 2;
 
-    private static final Instant DEFAULT_RELEASED = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_RELEASED = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    private static final String DEFAULT_RELEASED = "AAAAAAAAAA";
+    private static final String UPDATED_RELEASED = "BBBBBBBBBB";
 
     private static final Integer DEFAULT_RUNTIME = 1;
     private static final Integer UPDATED_RUNTIME = 2;

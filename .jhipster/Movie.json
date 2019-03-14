@@ -5,23 +5,19 @@
             "fieldName": "title",
             "fieldType": "String",
             "fieldValidateRules": [
-                "required",
-                "maxlength"
-            ],
-            "fieldValidateRulesMaxlength": 100
+                "required"
+            ]
         },
         {
             "fieldName": "year",
             "fieldType": "Integer",
             "fieldValidateRules": [
-                "required",
-                "min"
-            ],
-            "fieldValidateRulesMin": 1900
+                "required"
+            ]
         },
         {
             "fieldName": "released",
-            "fieldType": "Instant"
+            "fieldType": "String"
         },
         {
             "fieldName": "runtime",
@@ -29,11 +25,19 @@
         },
         {
             "fieldName": "plot",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 2000
         },
         {
             "fieldName": "poster",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 2000
         },
         {
             "fieldName": "rating",
@@ -42,19 +46,17 @@
     ],
     "relationships": [
         {
-            "relationshipType": "one-to-one",
+            "relationshipType": "many-to-one",
             "relationshipName": "rated",
             "otherEntityName": "rated",
             "otherEntityField": "code",
-            "ownerSide": true,
             "otherEntityRelationshipName": "movie"
         },
         {
-            "relationshipType": "one-to-one",
+            "relationshipType": "many-to-one",
             "relationshipName": "production",
             "otherEntityName": "production",
             "otherEntityField": "code",
-            "ownerSide": true,
             "otherEntityRelationshipName": "movie"
         }
     ],

@@ -1,5 +1,4 @@
 package org.fmi.movietracker.service.dto;
-import java.time.Instant;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -13,19 +12,19 @@ public class MovieDTO implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(max = 100)
     private String title;
 
     @NotNull
-    @Min(value = 1900)
     private Integer year;
 
-    private Instant released;
+    private String released;
 
     private Integer runtime;
 
+    @Size(max = 2000)
     private String plot;
 
+    @Size(max = 2000)
     private String poster;
 
     private BigDecimal rating;
@@ -63,11 +62,11 @@ public class MovieDTO implements Serializable {
         this.year = year;
     }
 
-    public Instant getReleased() {
+    public String getReleased() {
         return released;
     }
 
-    public void setReleased(Instant released) {
+    public void setReleased(String released) {
         this.released = released;
     }
 

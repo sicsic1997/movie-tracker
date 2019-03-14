@@ -24,4 +24,12 @@
     <include file="config/liquibase/changelog/20190309185204_added_entity_constraints_MovieGenreMapping.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190309185205_added_entity_constraints_MoviePeopleRoleMapping.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
+    <include file="config/liquibase/changelog/20190314161900_populate_entity_Genre.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190314161901_populate_entity_Rated.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190314161902_populate_entity_People.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190314161903_populate_entity_Language.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190314161904_populate_entity_MovieStatus.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190314161905_populate_entity_Role.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190314161906_populate_entity_Production.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190314161907_populate_entity_Movie.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

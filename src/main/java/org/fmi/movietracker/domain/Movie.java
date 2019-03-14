@@ -1,13 +1,13 @@
 package org.fmi.movietracker.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.util.Objects;
 
 /**
@@ -25,36 +25,36 @@ public class Movie implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(max = 100)
-    @Column(name = "title", length = 100, nullable = false)
+    @Column(name = "title", nullable = false)
     private String title;
 
     @NotNull
-    @Min(value = 1900)
     @Column(name = "jhi_year", nullable = false)
     private Integer year;
 
     @Column(name = "released")
-    private Instant released;
+    private String released;
 
     @Column(name = "runtime")
     private Integer runtime;
 
-    @Column(name = "plot")
+    @Size(max = 2000)
+    @Column(name = "plot", length = 2000)
     private String plot;
 
-    @Column(name = "poster")
+    @Size(max = 2000)
+    @Column(name = "poster", length = 2000)
     private String poster;
 
     @Column(name = "rating", precision = 10, scale = 2)
     private BigDecimal rating;
 
-    @OneToOne
-    @JoinColumn(unique = true)
+    @ManyToOne
+    @JsonIgnoreProperties("movies")
     private Rated rated;
 
-    @OneToOne
-    @JoinColumn(unique = true)
+    @ManyToOne
+    @JsonIgnoreProperties("movies")
     private Production production;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -92,16 +92,16 @@ public class Movie implements Serializable {
         this.year = year;
     }
 
-    public Instant getReleased() {
+    public String getReleased() {
         return released;
     }
 
-    public Movie released(Instant released) {
+    public Movie released(String released) {
         this.released = released;
         return this;
     }
 
-    public void setReleased(Instant released) {
+    public void setReleased(String released) {
         this.released = released;
     }
 

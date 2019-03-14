@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="GETDATE()" dbms="mssql"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <changeSet id="20190129113319-1" author="vlad.coteanu">
+        <addColumn tableName="movie">
+            <column name="rated_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+        </addColumn>
+        <addColumn tableName="movie">
+            <column name="production_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20190314161907-1" author="vlad.coteanu">
+        <output>Loading movie data</output>
+        <ext:loadData encoding="UTF-8"
+                      file="config/liquibase/movie.csv"
+                      separator="^"
+                      identityInsertEnabled="true"
+                      tableName="movie">
+            <column name="id" type="NUMERIC"/>
+        </ext:loadData>
+    </changeSet>
+
+    <changeSet id="20190314161907-2" author="vlad.coteanu">
+    <sql endDelimiter="\nGO"
+         splitStatements="true"
+         stripComments="true">
+        UPDATE [dbo].[movie]
+        SET rated_id = (SELECT id FROM [dbo].[rated] where rated.code = [dbo].[movie].rated_code)
+    </sql>
+    </changeSet>
+
+    <changeSet id="20190314161907-3" author="vlad.coteanu">
+        <sql endDelimiter="\nGO"
+             splitStatements="true"
+             stripComments="true">
+            UPDATE [dbo].[movie]
+            SET production_id = (SELECT id FROM [dbo].[production] where production.code = [dbo].[movie].production_code)
+        </sql>
+    </changeSet>
+
+    <changeSet id="20190314161907-4" author="vlad.coteanu">
+        <dropColumn
+            columnName="rated_code"
+            schemaName="dbo"
+            tableName="movie"/>
+        <dropColumn
+            columnName="production_code"
+            schemaName="dbo"
+            tableName="movie"/>
+    </changeSet>
+
+</databaseChangeLog>

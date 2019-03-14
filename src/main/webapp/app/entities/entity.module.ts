@@ -99,6 +99,22 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'movie-people-role-mapping',
                 loadChildren: './movie-people-role-mapping/movie-people-role-mapping.module#MovieTrackerMoviePeopleRoleMappingModule'
+            },
+            {
+                path: 'movie',
+                loadChildren: './movie/movie.module#MovieTrackerMovieModule'
+            },
+            {
+                path: 'movie',
+                loadChildren: './movie/movie.module#MovieTrackerMovieModule'
+            },
+            {
+                path: 'movie',
+                loadChildren: './movie/movie.module#MovieTrackerMovieModule'
+            },
+            {
+                path: 'movie',
+                loadChildren: './movie/movie.module#MovieTrackerMovieModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])

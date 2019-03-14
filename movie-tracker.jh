@@ -1,10 +1,10 @@
 entity Movie{
-    title String required maxlength(100)
-    year Integer required min(1900)
-    released Instant
+    title String required
+    year Integer required
+    released String
     runtime Integer
-    plot String
-    poster String
+    plot String maxlength(2000)
+    poster String maxlength(2000)
     rating BigDecimal
 }
 
@@ -58,12 +58,10 @@ relationship ManyToOne {
     MoviePeopleRoleMapping{people(name)} to People
     MoviePeopleRoleMapping{movie(title)} to Movie
     MoviePeopleRoleMapping{role(code)} to Role
-}
-
-relationship OneToOne {
     Movie{rated(code)} to Rated
     Movie{production(code)} to Production
 }
+
 
 
 // --> configure generators

@@ -3,8 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import * as moment from 'moment';
-import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiAlertService } from 'ng-jhipster';
 import { IMovie } from 'app/shared/model/movie.model';
 import { MovieService } from './movie.service';
@@ -24,7 +22,6 @@ export class MovieUpdateComponent implements OnInit {
     rateds: IRated[];
 
     productions: IProduction[];
-    released: string;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -38,58 +35,21 @@ export class MovieUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ movie }) => {
             this.movie = movie;
-            this.released = this.movie.released != null ? this.movie.released.format(DATE_TIME_FORMAT) : null;
         });
         this.ratedService
-            .query({ filter: 'movie-is-null' })
+            .query()
             .pipe(
                 filter((mayBeOk: HttpResponse<IRated[]>) => mayBeOk.ok),
                 map((response: HttpResponse<IRated[]>) => response.body)
             )
-            .subscribe(
-                (res: IRated[]) => {
-                    if (!this.movie.ratedId) {
-                        this.rateds = res;
-                    } else {
-                        this.ratedService
-                            .find(this.movie.ratedId)
-                            .pipe(
-                                filter((subResMayBeOk: HttpResponse<IRated>) => subResMayBeOk.ok),
-                                map((subResponse: HttpResponse<IRated>) => subResponse.body)
-                            )
-                            .subscribe(
-                                (subRes: IRated) => (this.rateds = [subRes].concat(res)),
-                                (subRes: HttpErrorResponse) => this.onError(subRes.message)
-                            );
-                    }
-                },
-                (res: HttpErrorResponse) => this.onError(res.message)
-            );
+            .subscribe((res: IRated[]) => (this.rateds = res), (res: HttpErrorResponse) => this.onError(res.message));
         this.productionService
-            .query({ filter: 'movie-is-null' })
+            .query()
             .pipe(
                 filter((mayBeOk: HttpResponse<IProduction[]>) => mayBeOk.ok),
                 map((response: HttpResponse<IProduction[]>) => response.body)
             )
-            .subscribe(
-                (res: IProduction[]) => {
-                    if (!this.movie.productionId) {
-                        this.productions = res;
-                    } else {
-                        this.productionService
-                            .find(this.movie.productionId)
-                            .pipe(
-                                filter((subResMayBeOk: HttpResponse<IProduction>) => subResMayBeOk.ok),
-                                map((subResponse: HttpResponse<IProduction>) => subResponse.body)
-                            )
-                            .subscribe(
-                                (subRes: IProduction) => (this.productions = [subRes].concat(res)),
-                                (subRes: HttpErrorResponse) => this.onError(subRes.message)
-                            );
-                    }
-                },
-                (res: HttpErrorResponse) => this.onError(res.message)
-            );
+            .subscribe((res: IProduction[]) => (this.productions = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     previousState() {
@@ -98,7 +58,6 @@ export class MovieUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        this.movie.released = this.released != null ? moment(this.released, DATE_TIME_FORMAT) : null;
         if (this.movie.id !== undefined) {
             this.subscribeToSaveResponse(this.movieService.update(this.movie));
         } else {

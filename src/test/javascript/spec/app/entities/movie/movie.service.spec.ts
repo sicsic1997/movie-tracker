@@ -4,8 +4,6 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { of } from 'rxjs';
 import { take, map } from 'rxjs/operators';
-import * as moment from 'moment';
-import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { MovieService } from 'app/entities/movie/movie.service';
 import { IMovie, Movie } from 'app/shared/model/movie.model';
 
@@ -15,7 +13,6 @@ describe('Service Tests', () => {
         let service: MovieService;
         let httpMock: HttpTestingController;
         let elemDefault: IMovie;
-        let currentDate: moment.Moment;
         beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [HttpClientTestingModule]
@@ -23,19 +20,13 @@ describe('Service Tests', () => {
             injector = getTestBed();
             service = injector.get(MovieService);
             httpMock = injector.get(HttpTestingController);
-            currentDate = moment();
 
-            elemDefault = new Movie(0, 'AAAAAAA', 0, currentDate, 0, 'AAAAAAA', 'AAAAAAA', 0);
+            elemDefault = new Movie(0, 'AAAAAAA', 0, 'AAAAAAA', 0, 'AAAAAAA', 'AAAAAAA', 0);
         });
 
         describe('Service methods', async () => {
             it('should find an element', async () => {
-                const returnedFromService = Object.assign(
-                    {
-                        released: currentDate.format(DATE_TIME_FORMAT)
-                    },
-                    elemDefault
-                );
+                const returnedFromService = Object.assign({}, elemDefault);
                 service
                     .find(123)
                     .pipe(take(1))
@@ -48,17 +39,11 @@ describe('Service Tests', () => {
             it('should create a Movie', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        id: 0,
-                        released: currentDate.format(DATE_TIME_FORMAT)
+                        id: 0
                     },
                     elemDefault
                 );
-                const expected = Object.assign(
-                    {
-                        released: currentDate
-                    },
-                    returnedFromService
-                );
+                const expected = Object.assign({}, returnedFromService);
                 service
                     .create(new Movie(null))
                     .pipe(take(1))
@@ -72,7 +57,7 @@ describe('Service Tests', () => {
                     {
                         title: 'BBBBBB',
                         year: 1,
-                        released: currentDate.format(DATE_TIME_FORMAT),
+                        released: 'BBBBBB',
                         runtime: 1,
                         plot: 'BBBBBB',
                         poster: 'BBBBBB',
@@ -81,12 +66,7 @@ describe('Service Tests', () => {
                     elemDefault
                 );
 
-                const expected = Object.assign(
-                    {
-                        released: currentDate
-                    },
-                    returnedFromService
-                );
+                const expected = Object.assign({}, returnedFromService);
                 service
                     .update(expected)
                     .pipe(take(1))
@@ -100,7 +80,7 @@ describe('Service Tests', () => {
                     {
                         title: 'BBBBBB',
                         year: 1,
-                        released: currentDate.format(DATE_TIME_FORMAT),
+                        released: 'BBBBBB',
                         runtime: 1,
                         plot: 'BBBBBB',
                         poster: 'BBBBBB',
@@ -108,12 +88,7 @@ describe('Service Tests', () => {
                     },
                     elemDefault
                 );
-                const expected = Object.assign(
-                    {
-                        released: currentDate
-                    },
-                    returnedFromService
-                );
+                const expected = Object.assign({}, returnedFromService);
                 service
                     .query(expected)
                     .pipe(

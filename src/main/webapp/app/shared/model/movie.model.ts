@@ -1,10 +1,8 @@
-import { Moment } from 'moment';
-
 export interface IMovie {
     id?: number;
     title?: string;
     year?: number;
-    released?: Moment;
+    released?: string;
     runtime?: number;
     plot?: string;
     poster?: string;
@@ -20,7 +18,7 @@ export class Movie implements IMovie {
         public id?: number,
         public title?: string,
         public year?: number,
-        public released?: Moment,
+        public released?: string,
         public runtime?: number,
         public plot?: string,
         public poster?: string,
