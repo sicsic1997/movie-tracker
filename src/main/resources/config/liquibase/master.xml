@@ -17,12 +17,15 @@
     <include file="config/liquibase/changelog/20190309185203_added_entity_MovieLanguageMapping.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190309185204_added_entity_MovieGenreMapping.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190309185205_added_entity_MoviePeopleRoleMapping.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190317121518_added_entity_Word.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190317131054_added_entity_Similarity.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20190309185154_added_entity_constraints_Movie.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190309185202_added_entity_constraints_UserMovieMapping.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190309185203_added_entity_constraints_MovieLanguageMapping.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190309185204_added_entity_constraints_MovieGenreMapping.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190309185205_added_entity_constraints_MoviePeopleRoleMapping.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190317131054_added_entity_constraints_Similarity.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <include file="config/liquibase/changelog/20190314161900_populate_entity_Genre.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190314161901_populate_entity_Rated.xml" relativeToChangelogFile="false"/>
@@ -35,4 +38,5 @@
     <include file="config/liquibase/changelog/20190314161908_populate_entity_MovieLanguageMapping.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190314161909_populate_entity_MovieGenreMapping.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190314161910_populate_entity_MoviePeopleRoleMapping.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190317161900_populate_entity_Word.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

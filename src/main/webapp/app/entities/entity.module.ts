@@ -143,6 +143,14 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'movie-people-role-mapping',
                 loadChildren: './movie-people-role-mapping/movie-people-role-mapping.module#MovieTrackerMoviePeopleRoleMappingModule'
+            },
+            {
+                path: 'word',
+                loadChildren: './word/word.module#MovieTrackerWordModule'
+            },
+            {
+                path: 'similarity',
+                loadChildren: './similarity/similarity.module#MovieTrackerSimilarityModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])

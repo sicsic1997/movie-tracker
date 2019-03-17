@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity Similarity.
+    -->
+    <changeSet id="20190317131054-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="moviea_id"
+                                 baseTableName="similarity"
+                                 constraintName="fk_similarity_moviea_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="movie"/>
+
+        <addForeignKeyConstraint baseColumnNames="movieb_id"
+                                 baseTableName="similarity"
+                                 constraintName="fk_similarity_movieb_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="movie"/>
+
+    </changeSet>
+</databaseChangeLog>

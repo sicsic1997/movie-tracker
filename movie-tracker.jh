@@ -62,6 +62,19 @@ relationship ManyToOne {
     Movie{production(code)} to Production
 }
 
+entity Word {
+    value String required
+    frequency Integer required
+}
+
+entity Similarity {
+    value BigDecimal
+}
+
+relationship ManyToOne {
+    Similarity{movieA} to Movie
+    Similarity{movieB} to Movie
+}
 
 
 // --> configure generators

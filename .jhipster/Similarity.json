@@ -1,0 +1,34 @@
+{
+    "name": "Similarity",
+    "fields": [
+        {
+            "fieldName": "value",
+            "fieldType": "BigDecimal"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "movieA",
+            "otherEntityName": "movie",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "similarity"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "movieB",
+            "otherEntityName": "movie",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "similarity"
+        }
+    ],
+    "changelogDate": "20190317131054",
+    "entityTableName": "similarity",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}
