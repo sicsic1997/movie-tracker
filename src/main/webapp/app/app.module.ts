@@ -17,6 +17,7 @@ import { MovieTrackerAppRoutingModule } from './app-routing.module';
 import { MovieTrackerHomeModule } from './home/home.module';
 import { MovieTrackerAccountModule } from './account/account.module';
 import { MovieTrackerEntityModule } from './entities/entity.module';
+import { MovieTrackerMovieDashboardModule } from 'app/movie-dashboard';
 import * as moment from 'moment';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ErrorComponent } from './layouts';
@@ -36,6 +37,7 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
         MovieTrackerAccountModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
         MovieTrackerEntityModule,
+        MovieTrackerMovieDashboardModule,
         MovieTrackerAppRoutingModule
     ],
     declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent],
