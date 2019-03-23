@@ -8,20 +8,24 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Movie and its DTO MovieDTO.
  */
-@Mapper(componentModel = "spring", uses = {RatedMapper.class, ProductionMapper.class})
+@Mapper(componentModel = "spring", uses = {
+    RatedMapper.class,
+    ProductionMapper.class,
+    MovieLanguageMappingMapper.class,
+    MovieGenreMappingMapper.class,
+    MoviePeopleRoleMappingMapper.class
+})
 public interface MovieMapper extends EntityMapper<MovieDTO, Movie> {
 
     @Mapping(source = "rated.id", target = "ratedId")
     @Mapping(source = "rated.code", target = "ratedCode")
     @Mapping(source = "production.id", target = "productionId")
     @Mapping(source = "production.code", target = "productionCode")
+    @Mapping(source = "genreLists", target = "genreLists")
     MovieDTO toDto(Movie movie);
 
     @Mapping(source = "ratedId", target = "rated")
     @Mapping(source = "productionId", target = "production")
-    @Mapping(target = "languageLists", ignore = true)
-    @Mapping(target = "genreLists", ignore = true)
-    @Mapping(target = "peopleLists", ignore = true)
     Movie toEntity(MovieDTO movieDTO);
 
     default Movie fromId(Long id) {

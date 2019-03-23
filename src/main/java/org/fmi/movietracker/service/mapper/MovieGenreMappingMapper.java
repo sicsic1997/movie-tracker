@@ -5,11 +5,15 @@ import org.fmi.movietracker.service.dto.MovieGenreMappingDTO;
 
 import org.mapstruct.*;
 
+import java.util.Set;
+
 /**
  * Mapper for the entity MovieGenreMapping and its DTO MovieGenreMappingDTO.
  */
 @Mapper(componentModel = "spring", uses = {GenreMapper.class, MovieMapper.class})
 public interface MovieGenreMappingMapper extends EntityMapper<MovieGenreMappingDTO, MovieGenreMapping> {
+
+    Set<MovieGenreMappingDTO> toDto(Set<MovieGenreMapping> set);
 
     @Mapping(source = "genre.id", target = "genreId")
     @Mapping(source = "genre.code", target = "genreCode")

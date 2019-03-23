@@ -1,0 +1,20 @@
+.movie-poster {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.title-poster {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+}
+
+.listing-custom {
+    padding-left: 0px;
+}
+
+td {
+    min-width: 150px;
+    font-weight: bolder;
+}

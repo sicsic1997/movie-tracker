@@ -20,10 +20,10 @@ export class HomeComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.accountService.identity().then((account: Account) => {
+        /*this.accountService.identity().then((account: Account) => {
             this.account = account;
         });
-        this.registerAuthenticationSuccess();
+        this.registerAuthenticationSuccess();*/
     }
 
     registerAuthenticationSuccess() {

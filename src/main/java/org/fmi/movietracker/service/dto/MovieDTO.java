@@ -1,8 +1,11 @@
 package org.fmi.movietracker.service.dto;
+import org.fmi.movietracker.domain.Language;
+
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A DTO for the Movie entity.
@@ -37,6 +40,36 @@ public class MovieDTO implements Serializable {
     private Long productionId;
 
     private String productionCode;
+
+    private Set<MovieGenreMappingDTO> genreLists;
+
+    private Set<MoviePeopleRoleMappingDTO> peopleLists;
+
+    private Set<MovieLanguageMappingDTO> languageLists;
+
+    public Set<MovieGenreMappingDTO> getGenreLists() {
+        return genreLists;
+    }
+
+    public void setGenreLists(Set<MovieGenreMappingDTO> genreLists) {
+        this.genreLists = genreLists;
+    }
+
+    public Set<MoviePeopleRoleMappingDTO> getPeopleLists() {
+        return peopleLists;
+    }
+
+    public void setPeopleLists(Set<MoviePeopleRoleMappingDTO> peopleLists) {
+        this.peopleLists = peopleLists;
+    }
+
+    public Set<MovieLanguageMappingDTO> getLanguageLists() {
+        return languageLists;
+    }
+
+    public void setLanguageLists(Set<MovieLanguageMappingDTO> languageLists) {
+        this.languageLists = languageLists;
+    }
 
     public Long getId() {
         return id;
@@ -152,24 +185,27 @@ public class MovieDTO implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hash(id, title, year, released, runtime, plot, poster, rating, ratedId, ratedCode, productionId, productionCode, genreLists, peopleLists, languageLists);
     }
 
     @Override
     public String toString() {
         return "MovieDTO{" +
-            "id=" + getId() +
-            ", title='" + getTitle() + "'" +
-            ", year=" + getYear() +
-            ", released='" + getReleased() + "'" +
-            ", runtime=" + getRuntime() +
-            ", plot='" + getPlot() + "'" +
-            ", poster='" + getPoster() + "'" +
-            ", rating=" + getRating() +
-            ", rated=" + getRatedId() +
-            ", rated='" + getRatedCode() + "'" +
-            ", production=" + getProductionId() +
-            ", production='" + getProductionCode() + "'" +
-            "}";
+            "id=" + id +
+            ", title='" + title + '\'' +
+            ", year=" + year +
+            ", released='" + released + '\'' +
+            ", runtime=" + runtime +
+            ", plot='" + plot + '\'' +
+            ", poster='" + poster + '\'' +
+            ", rating=" + rating +
+            ", ratedId=" + ratedId +
+            ", ratedCode='" + ratedCode + '\'' +
+            ", productionId=" + productionId +
+            ", productionCode='" + productionCode + '\'' +
+            ", genreDTOSet=" + genreLists +
+            ", peopleDTOS=" + peopleLists +
+            ", languageDTOS=" + languageLists +
+            '}';
     }
 }

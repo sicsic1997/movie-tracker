@@ -4,16 +4,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
-
 import { IMovie } from 'app/shared/model/movie.model';
 import { AccountService } from 'app/core';
-
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { MovieDashboardService } from './movie-dashboard.service';
 
 @Component({
     selector: 'jhi-movie',
-    templateUrl: './movie-dashboard.component.html'
+    templateUrl: './movie-dashboard.component.html',
+    styleUrls: ['movie-dashboard.css']
 })
 export class MovieDashboardComponent implements OnInit, OnDestroy {
     currentAccount: any;
@@ -69,7 +68,7 @@ export class MovieDashboardComponent implements OnInit, OnDestroy {
     }
 
     transition() {
-        this.router.navigate(['/movie'], {
+        this.router.navigate(['/movie-dashboard'], {
             queryParams: {
                 page: this.page,
                 size: this.itemsPerPage,
@@ -93,9 +92,6 @@ export class MovieDashboardComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.loadAll();
-        this.accountService.identity().then(account => {
-            this.currentAccount = account;
-        });
         this.registerChangeInMovies();
     }
 

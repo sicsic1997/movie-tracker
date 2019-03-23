@@ -5,11 +5,15 @@ import org.fmi.movietracker.service.dto.MovieLanguageMappingDTO;
 
 import org.mapstruct.*;
 
+import java.util.Set;
+
 /**
  * Mapper for the entity MovieLanguageMapping and its DTO MovieLanguageMappingDTO.
  */
 @Mapper(componentModel = "spring", uses = {MovieMapper.class, LanguageMapper.class})
 public interface MovieLanguageMappingMapper extends EntityMapper<MovieLanguageMappingDTO, MovieLanguageMapping> {
+
+    Set<MovieLanguageMappingDTO> toDto(Set<MovieLanguageMapping> set);
 
     @Mapping(source = "movie.id", target = "movieId")
     @Mapping(source = "movie.title", target = "movieTitle")

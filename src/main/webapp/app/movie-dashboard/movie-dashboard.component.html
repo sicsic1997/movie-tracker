@@ -1,14 +1,61 @@
 <div>
     <h2 id="page-heading">
-        <span>Movies</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-movie" [routerLink]="['/movie/new']">
-            <fa-icon [icon]="'plus'"></fa-icon>
-            <span >
-            Create new Movie
-            </span>
-        </button>
+        <span></span>
     </h2>
     <jhi-alert></jhi-alert>
-    <br/>
+    <div class="table-responsive" *ngIf="movies">
+        <div class="table table-hover">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <th jhiSortBy="title"><span>Title</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="released"><span>Released</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="rating"><span>Rating</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th><span>Genres</span></th>
+                    <th><span>Main cast</span></th>
+                    <th><span>Production</span></th>
+                    <th ><span>Plot</span></th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let movie of movies ;trackBy: trackId">
+                <td class="title-poster">
+                    <div style="width: 150px; height: auto">
+                        <img class="movie-poster" [src] = movie.poster alt="Image not found" onerror="this.onerror=null;this.src='../../content/images/no-img-available.png';">
+                    </div>
+                    <span style="font-weight: bold">{{movie.title}}</span>
+                </td>
+                <td class="fixed-td">{{movie.released}}</td>
+                <td class="">{{movie.rating}}</td>
+                <td>
+                    <div class="listing-custom">
+                        <div *ngFor="let genre of movie.genreLists ;">
+                            {{genre.genreCode}} <br/>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="listing-custom">
+                        <div *ngFor="let people of movie.peopleLists ;">
+                            <div *ngIf="people.peopleName != '' && people.roleCode == 'Actor'">
+                                {{people.peopleName}} <br/>
+                            </div>
+
+                        </div>
+                    </div>
+                </td>
+                <td>{{movie.productionCode}}</td>
+                <td>{{movie.plot}}</td>
+            </tr>
+            </tbody>
+        </div>
+    </div>
+    <div *ngIf="movies && movies.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
 
 </div>

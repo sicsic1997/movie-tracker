@@ -5,11 +5,15 @@ import org.fmi.movietracker.service.dto.MoviePeopleRoleMappingDTO;
 
 import org.mapstruct.*;
 
+import java.util.Set;
+
 /**
  * Mapper for the entity MoviePeopleRoleMapping and its DTO MoviePeopleRoleMappingDTO.
  */
 @Mapper(componentModel = "spring", uses = {PeopleMapper.class, MovieMapper.class, RoleMapper.class})
 public interface MoviePeopleRoleMappingMapper extends EntityMapper<MoviePeopleRoleMappingDTO, MoviePeopleRoleMapping> {
+
+    Set<MoviePeopleRoleMappingDTO> toDto(Set<MoviePeopleRoleMapping> set);
 
     @Mapping(source = "people.id", target = "peopleId")
     @Mapping(source = "people.name", target = "peopleName")
