@@ -28,6 +28,7 @@ export class MovieDashboardComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    stringFilter: string;
 
     constructor(
         protected movieDashboardService: MovieDashboardService,
@@ -50,6 +51,7 @@ export class MovieDashboardComponent implements OnInit, OnDestroy {
     loadAll() {
         this.movieDashboardService
             .query({
+                'filter.contains': this.stringFilter ? this.stringFilter : '',
                 page: this.page - 1,
                 size: this.itemsPerPage,
                 sort: this.sort()
@@ -113,6 +115,11 @@ export class MovieDashboardComponent implements OnInit, OnDestroy {
             result.push('id');
         }
         return result;
+    }
+
+    filterItems(value) {
+        this.stringFilter = value;
+        this.loadAll();
     }
 
     protected paginateMovies(data: IMovie[], headers: HttpHeaders) {

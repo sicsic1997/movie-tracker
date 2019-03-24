@@ -3,6 +3,13 @@
         <span></span>
     </h2>
     <jhi-alert></jhi-alert>
+    <div>
+        <h5>Filter results</h5>
+        <input pInputText placeholder="Search by title, plot, production..." type="text" [ngStyle]="{'width':'20%', 'margin-bottom':'15px'}"
+           (input)="filterItems($event.target.value)"
+           [value]="stringFilter ? stringFilter : ''">
+    </div>
+
     <div class="table-responsive" *ngIf="movies">
         <div class="table table-hover">
             <thead>
