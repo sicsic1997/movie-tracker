@@ -5,9 +5,10 @@ import { CommonModule } from '@angular/common';
 import { MovieTrackerSharedModule } from 'app/shared';
 import { MovieDashboardComponent } from './movie-dashboard.component';
 import { movieDashboardRoutes } from './movie-dashboard.route';
+import { MovieDashboardDetailComponent } from 'app/movie-dashboard/movie-dashboard-detail.component';
 
 @NgModule({
-    declarations: [MovieDashboardComponent],
+    declarations: [MovieDashboardComponent, MovieDashboardDetailComponent],
     imports: [CommonModule, MovieTrackerSharedModule, RouterModule.forChild(movieDashboardRoutes)],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

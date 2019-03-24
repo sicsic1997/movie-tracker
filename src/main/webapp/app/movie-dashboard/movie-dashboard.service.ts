@@ -19,4 +19,8 @@ export class MovieDashboardService {
         const options = createRequestOption(req);
         return this.http.get<IMovie[]>(this.resourceUrl, { params: options, observe: 'response' });
     }
+
+    find(id: number): Observable<EntityResponseType> {
+        return this.http.get<IMovie>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+    }
 }
