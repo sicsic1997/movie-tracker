@@ -10,11 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
 public class SimilarityCustomServiceImpl implements SimilarityCustomService {
+
+    public static int NUMBER_OF_SUGESTIONS = 10;
 
     @Autowired
     private SimilarityRepository similarityRepository;
@@ -23,13 +28,17 @@ public class SimilarityCustomServiceImpl implements SimilarityCustomService {
     private MovieMapper movieMapper;
 
     @Override
-    public Page<MovieDTO> getSuggestionsForMovie(Movie movie, Pageable pageable) {
-        return similarityRepository.getSuggestionsForMovie(movie, pageable).map(p -> movieMapper.toDto(p));
+    @Transactional
+    public List<MovieDTO> getSuggestionsForMovie(Movie movie) {
+        return similarityRepository.getSuggestionsForMovie(movie).stream()
+        .limit(NUMBER_OF_SUGESTIONS).map(p -> movieMapper.toDto(p)).collect(Collectors.toList());
     }
 
     @Override
-    public Page<MovieDTO> getSuggestionsForMovieAndUser(Movie movie, User user, Pageable pageable) {
-        return similarityRepository.getSuggestionsForMovieAndUser(movie, user, pageable).map(p -> movieMapper.toDto(p));
+    @Transactional
+    public List<MovieDTO> getSuggestionsForMovieAndUser(Movie movie, User user) {
+        return similarityRepository.getSuggestionsForMovieAndUser(movie, user).stream()
+            .limit(NUMBER_OF_SUGESTIONS).map(p -> movieMapper.toDto(p)).collect(Collectors.toList());
     }
 
 }

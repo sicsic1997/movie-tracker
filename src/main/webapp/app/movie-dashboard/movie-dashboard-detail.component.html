@@ -1,62 +1,50 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="movie">
-            <h2><span>Movie</span> {{movie.id}}</h2>
+            <h2><b>{{movie.title}}</b></h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
-            <dl class="row-md jh-entity-details">
-                <dt><span>Title</span></dt>
-                <dd>
-                    <span>{{movie.title}}</span>
-                </dd>
-                <dt><span>Year</span></dt>
-                <dd>
-                    <span>{{movie.year}}</span>
-                </dd>
-                <dt><span>Released</span></dt>
-                <dd>
-                    <span>{{movie.released}}</span>
-                </dd>
-                <dt><span>Runtime</span></dt>
-                <dd>
-                    <span>{{movie.runtime}}</span>
-                </dd>
-                <dt><span>Plot</span></dt>
-                <dd>
-                    <span>{{movie.plot}}</span>
-                </dd>
-                <dt><span>Poster</span></dt>
-                <dd>
-                    <span>{{movie.poster}}</span>
-                </dd>
-                <dt><span>Rating</span></dt>
-                <dd>
-                    <span>{{movie.rating}}</span>
-                </dd>
-                <dt><span>Rated</span></dt>
-                <dd>
-                    <div *ngIf="movie.ratedId">
-                        <a [routerLink]="['/rated', movie.ratedId, 'view']">{{movie.ratedCode}}</a>
-                    </div>
-                </dd>
-                <dt><span>Production</span></dt>
-                <dd>
-                    <div *ngIf="movie.productionId">
-                        <a [routerLink]="['/production', movie.productionId, 'view']">{{movie.productionCode}}</a>
-                    </div>
-                </dd>
-            </dl>
+            <div class="movie-details">
+                <div  style="flex: 1 1 25%">
+                    <img class="movie-poster" [src] = movie.poster alt="Image not found" onerror="this.onerror=null;this.src='../../content/images/no-img-available.png';">
+                </div>
+                <dl class="row-md jh-entity-details" style="flex: 1 1 75%">
+                    <dt><span>Plot</span></dt>
+                    <dd>
+                        <span>{{movie.plot}}</span>
+                    </dd>
+                    <dt><span>Released</span></dt>
+                    <dd>
+                        <span>{{movie.released}}</span>
+                    </dd>
+                    <dt><span>Runtime</span></dt>
+                    <dd>
+                        <span>{{movie.runtime}}</span>
+                    </dd>
+                    <dt><span>Rating</span></dt>
+                    <dd>
+                        <span>{{movie.rating}}</span>
+                    </dd>
+                    <dt><span>Production</span></dt>
+                    <dd>
+                        <div *ngIf="movie.productionId">
+                            <a [routerLink]="['/production', movie.productionId, 'view']">{{movie.productionCode}}</a>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+
+
+            <p-carousel headerText="More suggestions" [value]="suggestions" [numVisible]="3" [pageLinks]="6">
+                <ng-template let-movie pTemplate="item">
+                    {{movie.title}}
+                </ng-template>
+            </p-carousel>
 
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
-            </button>
-
-            <button type="button"
-                    [routerLink]="['/movie', movie.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
             </button>
         </div>
     </div>

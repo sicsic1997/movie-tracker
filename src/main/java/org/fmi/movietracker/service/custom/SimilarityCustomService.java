@@ -7,13 +7,15 @@ import org.springframework.data.domain.Page;
 
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 /**
  * Service Custom Interface for managing Similarity.
  */
 public interface SimilarityCustomService {
 
-    Page<MovieDTO> getSuggestionsForMovie(Movie movie, Pageable pageable);
+    List<MovieDTO> getSuggestionsForMovie(Movie movie);
 
-    Page<MovieDTO> getSuggestionsForMovieAndUser(Movie movie, User user, Pageable pageable);
+    List<MovieDTO> getSuggestionsForMovieAndUser(Movie movie, User user);
 
 }

@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 
 
 /**
@@ -24,7 +25,7 @@ public interface SimilarityRepository extends JpaRepository<Similarity, Long> {
         "FROM Similarity s " +
         "WHERE s.movieA = :movie " +
         "ORDER by s.value DESC ")
-    Page<Movie> getSuggestionsForMovie(@Param("movie") Movie movie, Pageable pageable);
+    List<Movie> getSuggestionsForMovie(@Param("movie") Movie movie);
 
     @Query("" +
         "SELECT " +
@@ -34,6 +35,6 @@ public interface SimilarityRepository extends JpaRepository<Similarity, Long> {
         "   s.movieA = :movie " +
         "AND s.movieB NOT IN (SELECT umm.movie FROM UserMovieMapping umm WHERE umm.user = :user) " +
         "ORDER by s.value DESC ")
-    Page<Movie> getSuggestionsForMovieAndUser(@Param("movie") Movie movie,@Param("user") User user, Pageable pageable);
+    List<Movie> getSuggestionsForMovieAndUser(@Param("movie") Movie movie,@Param("user") User user);
 
 }

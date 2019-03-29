@@ -20,6 +20,10 @@ export class MovieDashboardService {
         return this.http.get<IMovie[]>(this.resourceUrl, { params: options, observe: 'response' });
     }
 
+    querySuggestions(id: number): Observable<EntityArrayResponseType> {
+        return this.http.get<IMovie[]>(SERVER_API_URL + 'api/suggestion/' + id, { observe: 'response' });
+    }
+
     find(id: number): Observable<EntityResponseType> {
         return this.http.get<IMovie>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }

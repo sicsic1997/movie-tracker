@@ -1,0 +1,9 @@
+.movie-poster {
+    width: 80%;
+    height: auto;
+}
+
+.movie-details {
+    display: flex;
+    flex-direction: row;
+}

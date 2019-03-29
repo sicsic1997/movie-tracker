@@ -48,18 +48,16 @@ public class MovieCustomResource {
      * GET  /suggestion/:id : get the "id" movie suggestions.
      *
      * @param id the id of the movie to retrieve
-     * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and with body the List of movieDTO, or with status 404 (Not Found)
      */
     @GetMapping("/suggestion/{id}")
-    public ResponseEntity<List<MovieDTO>> getSuggestionsForMovie(@PathVariable Long id, Pageable pageable) {
+    public ResponseEntity<List<MovieDTO>> getSuggestionsForMovie(@PathVariable Long id) {
         log.debug("REST request to get suggestions for movie : {}", id);
         Optional<MovieDTO> movieDTOOptional = movieService.findOne(id);
         if(movieDTOOptional.isPresent()) {
             Movie movie = movieMapper.toEntity(movieDTOOptional.get());
-            Page<MovieDTO> page = similarityCustomService.getSuggestionsForMovie(movie, pageable);
-            HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/suggestion/{id}");
-            return ResponseEntity.ok().headers(headers).body(page.getContent());
+            List<MovieDTO> movieList = similarityCustomService.getSuggestionsForMovie(movie);
+            return ResponseEntity.ok().body(movieList);
         }
         return ResponseEntity.ok(null);
     }
@@ -68,20 +66,18 @@ public class MovieCustomResource {
      * GET  /suggestion/user/:id : get the "id" movie suggestions.
      *
      * @param id the id of the movie to retrieve
-     * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and with body the List of movieDTO, or with status 404 (Not Found)
      */
     @GetMapping("/suggestion/user/{id}")
-    public ResponseEntity<List<MovieDTO>> getSuggestionsForMovieAndUser(@PathVariable Long id, Pageable pageable) {
+    public ResponseEntity<List<MovieDTO>> getSuggestionsForMovieAndUser(@PathVariable Long id) {
         log.debug("REST request to get suggestions for movie and user : {}", id);
         Optional<MovieDTO> movieDTOOptional = movieService.findOne(id);
         Optional<User> userOptional = userService.getUserWithAuthorities();
         if(movieDTOOptional.isPresent() && userOptional.isPresent()) {
             Movie movie = movieMapper.toEntity(movieDTOOptional.get());
             User user = userOptional.get();
-            Page<MovieDTO> page = similarityCustomService.getSuggestionsForMovieAndUser(movie, user, pageable);
-            HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/suggestion/user/{id}");
-            return ResponseEntity.ok().headers(headers).body(page.getContent());
+            List<MovieDTO> movieList = similarityCustomService.getSuggestionsForMovieAndUser(movie, user);
+            return ResponseEntity.ok().body(movieList);
         }
         return ResponseEntity.ok(null);
     }
