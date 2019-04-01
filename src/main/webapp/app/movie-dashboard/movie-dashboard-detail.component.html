@@ -35,13 +35,15 @@
             </div>
 
 
-            <p-carousel headerText="More suggestions" [value]="suggestions" [numVisible]="3" [pageLinks]="6">
+            <p-carousel headerText="More suggestions" [value]="suggestions" [numVisible]="4" pageLinks="5" responsive="true">
                 <ng-template let-movie pTemplate="item">
-                    {{movie.title}}
+                    <div style="display:flex; flex-direction: column; height: 250px; align-items: center">
+                        <img [routerLink]="['/movie-dashboard', movie.id]" title="{{movie.title}}" style="cursor:pointer; max-height: 100%; display: block; width: auto; " [src] = movie.poster alt="Image not found" onerror="this.onerror=null;this.src='../../content/images/no-img-available.png';">
+                    </div>
                 </ng-template>
             </p-carousel>
 
-            <button type="submit"
+            <button style="margin-top:15px" type="submit"
                     (click)="previousState()"
                     class="btn btn-info">
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
