@@ -1,5 +1,12 @@
 package org.fmi.movietracker.service.impl;
 
+import org.fmi.movietracker.domain.Movie;
+import org.fmi.movietracker.domain.MovieStatus;
+import org.fmi.movietracker.domain.User;
+import org.fmi.movietracker.repository.MovieRepository;
+import org.fmi.movietracker.repository.MovieStatusRepository;
+import org.fmi.movietracker.repository.UserRepository;
+import org.fmi.movietracker.security.SecurityUtils;
 import org.fmi.movietracker.service.UserMovieMappingService;
 import org.fmi.movietracker.domain.UserMovieMapping;
 import org.fmi.movietracker.repository.UserMovieMappingRepository;
@@ -13,7 +20,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.file.attribute.UserPrincipal;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Service Implementation for managing UserMovieMapping.
@@ -28,9 +38,22 @@ public class UserMovieMappingServiceImpl implements UserMovieMappingService {
 
     private final UserMovieMappingMapper userMovieMappingMapper;
 
-    public UserMovieMappingServiceImpl(UserMovieMappingRepository userMovieMappingRepository, UserMovieMappingMapper userMovieMappingMapper) {
+    private final UserRepository userRepository;
+
+    private final MovieRepository movieRepository;
+
+    private final MovieStatusRepository movieStatusRepository;
+
+    public UserMovieMappingServiceImpl(UserMovieMappingRepository userMovieMappingRepository,
+                                       UserMovieMappingMapper userMovieMappingMapper,
+                                       UserRepository userRepository,
+                                       MovieRepository movieRepository,
+                                       MovieStatusRepository movieStatusRepository) {
         this.userMovieMappingRepository = userMovieMappingRepository;
         this.userMovieMappingMapper = userMovieMappingMapper;
+        this.userRepository = userRepository;
+        this.movieRepository = movieRepository;
+        this.movieStatusRepository = movieStatusRepository;
     }
 
     /**
@@ -85,4 +108,50 @@ public class UserMovieMappingServiceImpl implements UserMovieMappingService {
     public void delete(Long id) {
         log.debug("Request to delete UserMovieMapping : {}", id);        userMovieMappingRepository.deleteById(id);
     }
+
+    @Override
+    @Transactional
+    public List<UserMovieMappingDTO> findMappingForMovieAndCurrentLogin(Long movieId) {
+        return userMovieMappingRepository.findByUserIsCurrentUserAndMovieId(movieId)
+            .stream().map(userMovieMappingMapper::toDto).collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public List<UserMovieMappingDTO> findByCurrentLogin() {
+        return userMovieMappingRepository.findByUserIsCurrentUser()
+            .stream().map(userMovieMappingMapper::toDto).collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public void deleteByMovieIdAndLoggedUser(Long movieId, String movieStatusCode) {
+        Optional<UserMovieMapping> userMovieMappingOptional =
+            userMovieMappingRepository.findByUser_LoginAndMovie_IdAndMovieStatus_Code(SecurityUtils.getCurrentUserLogin().get(), movieId, movieStatusCode);
+        userMovieMappingOptional.ifPresent(userMovieMapping -> delete(userMovieMapping.getId()));
+    }
+
+    @Override
+    @Transactional
+    public void createByMovieIdAndLoggedUser(Long movieId, String movieStatusCode) {
+        String userLogin = SecurityUtils.getCurrentUserLogin().get();
+        Optional<User> userOptional = userRepository.findOneByLogin(userLogin);
+        if(userOptional.isPresent()) {
+            User user = userOptional.get();
+            Optional<Movie> movieOptional = movieRepository.findById(movieId);
+            if(movieOptional.isPresent()) {
+                Movie movie = movieOptional.get();
+                Optional<MovieStatus> movieStatusOptional = movieStatusRepository.getByCode(movieStatusCode);
+                if(movieStatusOptional.isPresent()) {
+                    MovieStatus movieStatus = movieStatusOptional.get();
+                    UserMovieMapping umm = new UserMovieMapping();
+                    umm.setMovie(movie);
+                    umm.setUser(user);
+                    umm.setMovieStatus(movieStatus);
+                    userMovieMappingRepository.save(umm);
+                }
+            }
+        }
+    }
+
 }

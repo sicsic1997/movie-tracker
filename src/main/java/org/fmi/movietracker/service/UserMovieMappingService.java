@@ -5,6 +5,7 @@ import org.fmi.movietracker.service.dto.UserMovieMappingDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -28,7 +29,6 @@ public interface UserMovieMappingService {
      */
     Page<UserMovieMappingDTO> findAll(Pageable pageable);
 
-
     /**
      * Get the "id" userMovieMapping.
      *
@@ -43,4 +43,13 @@ public interface UserMovieMappingService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+    List<UserMovieMappingDTO> findMappingForMovieAndCurrentLogin(Long movieId);
+
+    List<UserMovieMappingDTO> findByCurrentLogin();
+
+    void deleteByMovieIdAndLoggedUser(Long movieId, String movieStatusCode);
+
+    void createByMovieIdAndLoggedUser(Long movieId, String movieStatusCode);
+
 }

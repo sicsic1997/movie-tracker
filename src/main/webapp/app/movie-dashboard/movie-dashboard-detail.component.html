@@ -8,7 +8,7 @@
                 <div  style="flex: 1 1 25%">
                     <img class="movie-poster" [src] = movie.poster alt="Image not found" onerror="this.onerror=null;this.src='../../content/images/no-img-available.png';">
                 </div>
-                <dl class="row-md jh-entity-details" style="flex: 1 1 75%">
+                <dl class="row-md jh-entity-details" style="flex: 1 1 75%; position: relative">
                     <dt><span>Plot</span></dt>
                     <dd>
                         <span>{{movie.plot}}</span>
@@ -31,6 +31,16 @@
                             <a [routerLink]="['/production', movie.productionId, 'view']">{{movie.productionCode}}</a>
                         </div>
                     </dd>
+                    <div style="position:absolute; bottom: 2%; right: 0px;" [hidden] = "!isAuthenticated" >
+                        <button (click)='clickHistory(movie.id)' [class]="inHistory(movie.id) ? 'btn btn-light' : 'btn btn-secondary'">
+                            <fa-icon [icon]="inHistory(movie.id) ? 'minus' : 'plus'"></fa-icon>
+                            <span> History </span>
+                        </button>
+                        <button (click)='clickWishilist(movie.id)' [class]="inWishlist(movie.id) ? 'btn btn-light' : 'btn btn-secondary'" style="margin-left: 5px">
+                            <fa-icon [icon]="inWishlist(movie.id) ? 'minus' : 'plus'"></fa-icon>
+                            <span> Wishlist </span>
+                        </button>
+                    </div>
                 </dl>
             </div>
 

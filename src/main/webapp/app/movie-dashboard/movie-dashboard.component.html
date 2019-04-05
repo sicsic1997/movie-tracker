@@ -51,7 +51,19 @@
                     </div>
                 </td>
                 <td>{{movie.productionCode}}</td>
-                <td>{{movie.plot}}</td>
+                <td style="position: relative">
+                    <div>{{movie.plot}}</div>
+                    <div style="position: absolute; bottom: 5%; right: 5%;" [hidden] = "!isAuthenticated" >
+                        <button (click)='clickHistory(movie.id)' [class]="inHistory(movie.id) ? 'btn btn-light' : 'btn btn-secondary'">
+                            <fa-icon [icon]="inHistory(movie.id) ? 'minus' : 'plus'"></fa-icon>
+                            <span> History </span>
+                        </button>
+                        <button (click)='clickWishilist(movie.id)' [class]="inWishlist(movie.id) ? 'btn btn-light' : 'btn btn-secondary'" style="margin-left: 5px">
+                            <fa-icon [icon]="inWishlist(movie.id) ? 'minus' : 'plus'"></fa-icon>
+                            <span> Wishlist </span>
+                        </button>
+                    </div>
+                </td>
             </tr>
             </tbody>
         </div>

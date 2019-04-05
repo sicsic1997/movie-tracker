@@ -8,6 +8,8 @@ import { IMovie } from 'app/shared/model/movie.model';
 import { AccountService } from 'app/core';
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { MovieDashboardService } from './movie-dashboard.service';
+import { IUserMovieMapping } from 'app/shared/model/user-movie-mapping.model';
+import { UserMovieMappingService } from 'app/entities/user-movie-mapping';
 
 @Component({
     selector: 'jhi-movie',
@@ -29,6 +31,8 @@ export class MovieDashboardComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
     stringFilter: string;
+    isAuthenticated: boolean;
+    userMovieMapping: IUserMovieMapping[];
 
     constructor(
         protected movieDashboardService: MovieDashboardService,
@@ -37,7 +41,8 @@ export class MovieDashboardComponent implements OnInit, OnDestroy {
         protected accountService: AccountService,
         protected activatedRoute: ActivatedRoute,
         protected router: Router,
-        protected eventManager: JhiEventManager
+        protected eventManager: JhiEventManager,
+        protected userMovieMappingService: UserMovieMappingService
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -60,6 +65,10 @@ export class MovieDashboardComponent implements OnInit, OnDestroy {
                 (res: HttpResponse<IMovie[]>) => this.paginateMovies(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
+        this.isAuthenticated = this.accountService.isAuthenticated();
+        if (this.isAuthenticated) {
+            this.loadUserMovieData();
+        }
     }
 
     loadPage(page: number) {
@@ -130,5 +139,63 @@ export class MovieDashboardComponent implements OnInit, OnDestroy {
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    loadUserMovieData() {
+        this.userMovieMappingService
+            .findByLogin()
+            .subscribe(
+                (res: HttpResponse<IUserMovieMapping[]>) => (this.userMovieMapping = res.body),
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+    }
+
+    inWishlist(movieId: number) {
+        if (this.userMovieMapping == undefined) {
+            return false;
+        }
+        console.log(this.userMovieMapping.length);
+        for (let i = 0; i < this.userMovieMapping.length; i++) {
+            if (this.userMovieMapping[i].movieId === movieId && this.userMovieMapping[i].movieStatusCode === 'WISH_LIST') {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    inHistory(movieId: number) {
+        if (this.userMovieMapping == undefined) {
+            return false;
+        }
+        for (let i = 0; i < this.userMovieMapping.length; i++) {
+            if (this.userMovieMapping[i].movieId === movieId && this.userMovieMapping[i].movieStatusCode === 'HISTORY') {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    clickWishilist(movieId: number) {
+        if (this.inWishlist(movieId)) {
+            this.userMovieMappingService
+                .deleteByMovieId(movieId, 'WISH_LIST')
+                .subscribe((res: HttpResponse<any>) => this.loadUserMovieData(), (res: HttpErrorResponse) => this.onError(res.message));
+        } else {
+            this.userMovieMappingService
+                .createByMovieIdAndStatusCode(movieId, 'WISH_LIST')
+                .subscribe((res: HttpResponse<any>) => this.loadUserMovieData(), (res: HttpErrorResponse) => this.onError(res.message));
+        }
+    }
+
+    clickHistory(movieId: number) {
+        if (this.inHistory(movieId)) {
+            this.userMovieMappingService
+                .deleteByMovieId(movieId, 'HISTORY')
+                .subscribe((res: HttpResponse<any>) => this.loadUserMovieData(), (res: HttpErrorResponse) => this.onError(res.message));
+        } else {
+            this.userMovieMappingService
+                .createByMovieIdAndStatusCode(movieId, 'HISTORY')
+                .subscribe((res: HttpResponse<any>) => this.loadUserMovieData(), (res: HttpErrorResponse) => this.onError(res.message));
+        }
     }
 }

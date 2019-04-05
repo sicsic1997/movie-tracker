@@ -92,6 +92,19 @@ public class UserMovieMappingResource {
     }
 
     /**
+     * GET  /user-movie-mappings/user-movie
+     *
+     * @param movieId
+     * @param movieStatusCode
+     * @return the ResponseEntity with status 200 (OK) and the list of userMovieMappings in body
+     */
+    @GetMapping("/user-movie-mappings/save")
+    public ResponseEntity<Void> saveUserMappingForMovieAndLoggedUser(@RequestParam Long movieId, @RequestParam String movieStatusCode) {
+        userMovieMappingService.createByMovieIdAndLoggedUser(movieId, movieStatusCode);
+        return ResponseEntity.ok().build();
+    }
+
+    /**
      * GET  /user-movie-mappings/:id : get the "id" userMovieMapping.
      *
      * @param id the id of the userMovieMappingDTO to retrieve
@@ -102,6 +115,31 @@ public class UserMovieMappingResource {
         log.debug("REST request to get UserMovieMapping : {}", id);
         Optional<UserMovieMappingDTO> userMovieMappingDTO = userMovieMappingService.findOne(id);
         return ResponseUtil.wrapOrNotFound(userMovieMappingDTO);
+    }
+
+    /**
+     * GET  /user-movie-mappings/user-movie : get the "id" userMovieMapping.
+     *
+     * @param movieId the id of the movie to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the userMovieMappingDTO, or with status 404 (Not Found)
+     */
+    @GetMapping("/user-movie-mappings/user-movie")
+    public ResponseEntity<List<UserMovieMappingDTO>> getUserMovieMappingForMovieAndLoggedUser(@RequestParam Long movieId) {
+        log.debug("REST request to get UserMovieMapping : {}, {}", movieId);
+        List<UserMovieMappingDTO> userMovieMappingDTOList = userMovieMappingService.findMappingForMovieAndCurrentLogin(movieId);
+        return ResponseEntity.ok().body(userMovieMappingDTOList);
+    }
+
+    /**
+     * GET  /user-movie-mappings/user : get the "id" userMovieMapping.
+     *
+     * @return the ResponseEntity with status 200 (OK) and with body the userMovieMappingDTO, or with status 404 (Not Found)
+     */
+    @GetMapping("/user-movie-mappings/user")
+    public ResponseEntity<List<UserMovieMappingDTO>> getUserMovieMappingForLoggedUser() {
+        log.debug("REST request to get UserMovieMapping");
+        List<UserMovieMappingDTO> userMovieMappingDTOList = userMovieMappingService.findByCurrentLogin();
+        return ResponseEntity.ok().body(userMovieMappingDTOList);
     }
 
     /**
@@ -116,4 +154,21 @@ public class UserMovieMappingResource {
         userMovieMappingService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+    /**
+     * DELETE  /user-movie-mappings/user/:movieId/:movieStatusCode : delete the "movieId"
+     *
+     * @param movieId the id of the movie
+     * @param movieStatusCode the code of the mapping
+     * @return the ResponseEntity with status 200 (OK)
+     */
+    @DeleteMapping("/user-movie-mappings/user/{movieId}/{movieStatusCode}")
+    public ResponseEntity<Void> deleteUserMovieMappingByMovie(@PathVariable Long movieId, @PathVariable String movieStatusCode) {
+        log.debug("REST request to delete UserMovieMapping : {}", movieId);
+        userMovieMappingService.deleteByMovieIdAndLoggedUser(movieId, movieStatusCode);
+        return ResponseEntity.ok().build();
+    }
+
+
+
 }
