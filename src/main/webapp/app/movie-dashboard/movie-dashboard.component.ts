@@ -151,7 +151,7 @@ export class MovieDashboardComponent implements OnInit, OnDestroy {
     }
 
     inWishlist(movieId: number) {
-        if (this.userMovieMapping == undefined) {
+        if (this.userMovieMapping === undefined) {
             return false;
         }
         console.log(this.userMovieMapping.length);
@@ -164,7 +164,7 @@ export class MovieDashboardComponent implements OnInit, OnDestroy {
     }
 
     inHistory(movieId: number) {
-        if (this.userMovieMapping == undefined) {
+        if (this.userMovieMapping === undefined) {
             return false;
         }
         for (let i = 0; i < this.userMovieMapping.length; i++) {
