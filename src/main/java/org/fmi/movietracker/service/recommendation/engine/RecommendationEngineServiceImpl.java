@@ -76,7 +76,7 @@ public class RecommendationEngineServiceImpl {
 
         for(Movie movieA : frecvCounter.keySet()) {
             for(Movie movieB : frecvCounter.keySet()) {
-                if(movieA.getId() == movieB.getId()) {
+                if(movieA.getId().equals(movieB.getId())) {
                     continue;
                 }
                 Similarity similarity = new Similarity();

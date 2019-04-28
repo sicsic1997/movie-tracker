@@ -32,9 +32,9 @@ public interface SimilarityRepository extends JpaRepository<Similarity, Long> {
         "   s.movieB " +
         "FROM Similarity s " +
         "WHERE " +
-        "   s.movieA = :movie " +
+        "   s.movieA IN (SELECT umm.movie FROM UserMovieMapping umm WHERE umm.user = :user) " +
         "AND s.movieB NOT IN (SELECT umm.movie FROM UserMovieMapping umm WHERE umm.user = :user) " +
         "ORDER by s.value DESC ")
-    List<Movie> getSuggestionsForMovieAndUser(@Param("movie") Movie movie,@Param("user") User user);
+    List<Movie> getSuggestionsUser(@Param("user") User user);
 
 }

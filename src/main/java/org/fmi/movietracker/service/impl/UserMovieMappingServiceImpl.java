@@ -10,7 +10,9 @@ import org.fmi.movietracker.security.SecurityUtils;
 import org.fmi.movietracker.service.UserMovieMappingService;
 import org.fmi.movietracker.domain.UserMovieMapping;
 import org.fmi.movietracker.repository.UserMovieMappingRepository;
+import org.fmi.movietracker.service.dto.MovieDTO;
 import org.fmi.movietracker.service.dto.UserMovieMappingDTO;
+import org.fmi.movietracker.service.mapper.MovieMapper;
 import org.fmi.movietracker.service.mapper.UserMovieMappingMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,16 +46,20 @@ public class UserMovieMappingServiceImpl implements UserMovieMappingService {
 
     private final MovieStatusRepository movieStatusRepository;
 
+    private final MovieMapper movieMapper;
+
     public UserMovieMappingServiceImpl(UserMovieMappingRepository userMovieMappingRepository,
                                        UserMovieMappingMapper userMovieMappingMapper,
                                        UserRepository userRepository,
                                        MovieRepository movieRepository,
-                                       MovieStatusRepository movieStatusRepository) {
+                                       MovieStatusRepository movieStatusRepository,
+                                       MovieMapper movieMapper) {
         this.userMovieMappingRepository = userMovieMappingRepository;
         this.userMovieMappingMapper = userMovieMappingMapper;
         this.userRepository = userRepository;
         this.movieRepository = movieRepository;
         this.movieStatusRepository = movieStatusRepository;
+        this.movieMapper = movieMapper;
     }
 
     /**
@@ -152,6 +158,24 @@ public class UserMovieMappingServiceImpl implements UserMovieMappingService {
                 }
             }
         }
+    }
+
+    @Override
+    public List<MovieDTO> findByCurrentLoginInHistory() {
+        return userMovieMappingRepository
+            .findMoviesInHistoryByUserIsCurrentUser()
+            .stream()
+            .map(movieMapper::toDto)
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<MovieDTO> findByCurrentLoginInWishlist() {
+        return userMovieMappingRepository
+            .findMoviesInWIshlistByUserIsCurrentUser()
+            .stream()
+            .map(movieMapper::toDto)
+            .collect(Collectors.toList());
     }
 
 }

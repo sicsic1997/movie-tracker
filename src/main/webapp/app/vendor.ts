@@ -42,10 +42,12 @@ import {
     faHome,
     faVideo,
     faHistory,
+    faChalkboardTeacher,
     faMinus
 } from '@fortawesome/free-solid-svg-icons';
 
 // Adds the SVG icon to the library so you can use it in your page
+library.add(faChalkboardTeacher);
 library.add(faMinus);
 library.add(faHistory);
 library.add(faUser);

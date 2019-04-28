@@ -34,8 +34,9 @@ public class SimilarityCustomServiceImpl implements SimilarityCustomService {
 
     @Override
     @Transactional
-    public List<MovieDTO> getSuggestionsForMovieAndUser(Movie movie, User user) {
-        return similarityRepository.getSuggestionsForMovieAndUser(movie, user).stream()
+    public List<MovieDTO> getSuggestionsForUser(User user) {
+        return similarityRepository.getSuggestionsUser(user).stream()
+            .distinct()
             .limit(NUMBER_OF_SUGGESTIONS).map(p -> movieMapper.toDto(p)).collect(Collectors.toList());
     }
 

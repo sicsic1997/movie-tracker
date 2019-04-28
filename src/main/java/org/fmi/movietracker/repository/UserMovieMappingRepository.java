@@ -23,6 +23,22 @@ public interface UserMovieMappingRepository extends JpaRepository<UserMovieMappi
     @Query("select user_movie_mapping from UserMovieMapping user_movie_mapping where user_movie_mapping.user.login = ?#{principal.username}")
     List<UserMovieMapping> findByUserIsCurrentUser();
 
+    @Query("select movie " +
+        "       from UserMovieMapping user_movie_mapping " +
+        "   join user_movie_mapping.movie movie" +
+        "   join user_movie_mapping.movieStatus movie_status " +
+        "   where user_movie_mapping.user.login = ?#{principal.username}" +
+        "       and movie_status.code = 'HISTORY' ")
+    List<Movie> findMoviesInHistoryByUserIsCurrentUser();
+
+    @Query("select movie " +
+        "       from UserMovieMapping user_movie_mapping " +
+        "   join user_movie_mapping.movie movie" +
+        "   join user_movie_mapping.movieStatus movie_status " +
+        "   where user_movie_mapping.user.login = ?#{principal.username}" +
+        "       and movie_status.code = 'WISH_LIST' ")
+    List<Movie> findMoviesInWIshlistByUserIsCurrentUser();
+
     @Query("select user_movie_mapping from UserMovieMapping user_movie_mapping " +
         " join user_movie_mapping.movie movie where user_movie_mapping.user.login = ?#{principal.username} " +
         " and movie.id = :movieId ")

@@ -1,0 +1,44 @@
+<div>
+    <h2 id="page-heading">
+        <span></span>
+    </h2>
+    <jhi-alert></jhi-alert>
+
+    <div>
+        <h5>This is your personal dashboard</h5>
+        <br/>
+    </div>
+
+    <div>
+
+        <p-carousel headerText="History" [value]="moviesHistory" [numVisible]="8" pageLinks="5" responsive="true">
+            <ng-template let-movie pTemplate="item">
+                <div style="display:flex; flex-direction: column; height: 200px; align-items: center">
+                    <img [routerLink]="['/movie-dashboard', movie.id]" title="{{movie.title}}" style="cursor:pointer; max-height: 100%; display: block; width: auto; " [src] = movie.poster alt="Image not found" onerror="this.onerror=null;this.src='../../content/images/no-img-available.png';">
+                </div>
+            </ng-template>
+        </p-carousel>
+
+        <br/>
+
+        <p-carousel headerText="Wishlist" [value]="moviesWishlist" [numVisible]="8" pageLinks="5" responsive="true">
+            <ng-template let-movie pTemplate="item">
+                <div style="display:flex; flex-direction: column; height: 200px; align-items: center">
+                    <img [routerLink]="['/movie-dashboard', movie.id]" title="{{movie.title}}" style="cursor:pointer; max-height: 100%; display: block; width: auto; " [src] = movie.poster alt="Image not found" onerror="this.onerror=null;this.src='../../content/images/no-img-available.png';">
+                </div>
+            </ng-template>
+        </p-carousel>
+
+        <br/>
+
+        <p-carousel headerText="Suggestions" [value]="moviesSuggestions" [numVisible]="8" pageLinks="5" responsive="true">
+            <ng-template let-movie pTemplate="item">
+                <div style="display:flex; flex-direction: column; height: 200px; align-items: center">
+                    <img [routerLink]="['/movie-dashboard', movie.id]" title="{{movie.title}}" style="cursor:pointer; max-height: 100%; display: block; width: auto; " [src] = movie.poster alt="Image not found" onerror="this.onerror=null;this.src='../../content/images/no-img-available.png';">
+                </div>
+            </ng-template>
+        </p-carousel>
+
+    </div>
+
+</div>

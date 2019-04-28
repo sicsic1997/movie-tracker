@@ -313,7 +313,32 @@
 
     <build>
         <defaultGoal>spring-boot:run</defaultGoal>
+
         <plugins>
+            <plugin>
+                <groupId>com.microsoft.azure</groupId>
+                    <artifactId>azure-webapp-maven-plugin</artifactId>
+                <!-- check Maven Central for the latest version -->
+                <version>1.4.0</version>
+                <configuration>
+                    <deploymentType>war</deploymentType>
+
+                    <!-- configure app to run on port 80, required by App Service -->
+                    <appSettings>
+                        <property>
+                            <name>JAVA_OPTS</name>
+                            <value>-Dserver.port=80</value>
+                        </property>
+                    </appSettings>
+
+                    <!-- Web App information -->
+                    <resourceGroup>MovieTracker</resourceGroup>
+                    <appName>MovieTracker-CoteanuVlad</appName>
+                    <region>Central US</region>
+
+                    <!-- Java Runtime Stack for Web App on Linux-->
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

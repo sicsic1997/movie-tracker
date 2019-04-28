@@ -1,5 +1,6 @@
 package org.fmi.movietracker.service;
 
+import org.fmi.movietracker.service.dto.MovieDTO;
 import org.fmi.movietracker.service.dto.UserMovieMappingDTO;
 
 import org.springframework.data.domain.Page;
@@ -51,5 +52,9 @@ public interface UserMovieMappingService {
     void deleteByMovieIdAndLoggedUser(Long movieId, String movieStatusCode);
 
     void createByMovieIdAndLoggedUser(Long movieId, String movieStatusCode);
+
+    List<MovieDTO> findByCurrentLoginInHistory();
+
+    List<MovieDTO> findByCurrentLoginInWishlist();
 
 }

@@ -63,20 +63,17 @@ public class MovieCustomResource {
     }
 
     /**
-     * GET  /suggestion/user/:id : get the "id" movie suggestions.
+     * GET  /suggestion/user : get the "id" movie suggestions.
      *
-     * @param id the id of the movie to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the List of movieDTO, or with status 404 (Not Found)
      */
-    @GetMapping("/suggestion/user/{id}")
-    public ResponseEntity<List<MovieDTO>> getSuggestionsForMovieAndUser(@PathVariable Long id) {
-        log.debug("REST request to get suggestions for movie and user : {}", id);
-        Optional<MovieDTO> movieDTOOptional = movieService.findOne(id);
+    @GetMapping("/suggestion/user")
+    public ResponseEntity<List<MovieDTO>> getSuggestionsForMovieAndUser() {
+        log.debug("REST request to get suggestions for user : {}");
         Optional<User> userOptional = userService.getUserWithAuthorities();
-        if(movieDTOOptional.isPresent() && userOptional.isPresent()) {
-            Movie movie = movieMapper.toEntity(movieDTOOptional.get());
+        if(userOptional.isPresent()) {
             User user = userOptional.get();
-            List<MovieDTO> movieList = similarityCustomService.getSuggestionsForMovieAndUser(movie, user);
+            List<MovieDTO> movieList = similarityCustomService.getSuggestionsForUser(user);
             return ResponseEntity.ok().body(movieList);
         }
         return ResponseEntity.ok(null);

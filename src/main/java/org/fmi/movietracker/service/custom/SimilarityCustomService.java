@@ -16,6 +16,6 @@ public interface SimilarityCustomService {
 
     List<MovieDTO> getSuggestionsForMovie(Movie movie);
 
-    List<MovieDTO> getSuggestionsForMovieAndUser(Movie movie, User user);
+    List<MovieDTO> getSuggestionsForUser(User user);
 
 }
