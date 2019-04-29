@@ -27,7 +27,7 @@ spring:
             enabled: false
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:sqlserver:movie-tracker.database.windows.net:1433;database=MovieTracker
+        url: jdbc:sqlserver://movie-tracker.database.windows.net;database=MovieTracker
         username: movie-tracker-admin
         password: passwordForProtection1234
         hikari:
