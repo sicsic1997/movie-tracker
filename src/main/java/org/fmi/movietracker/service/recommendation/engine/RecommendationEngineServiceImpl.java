@@ -57,33 +57,44 @@ public class RecommendationEngineServiceImpl {
     }
 
     private void calculateSimilarities(Map<Movie, List<String>> data) {
+        for(Movie movieA : data.keySet()) {
+            for(Movie movieB : data.keySet()) {
 
-        Map<Movie, List<Integer>> frecvCounter = new HashMap<>();
-        Set<String> allWords = new HashSet<>();
-        for (Movie movie : data.keySet()) {
-            allWords.addAll(data.get(movie));
-        }
-
-        for (Movie movie : data.keySet()) {
-            List<Integer> wordFrecvList = new ArrayList<>();
-            for (String wordValue : allWords) {
-                wordFrecvList.add(countOccurrences(
-                    movie.getPlot().split("[ !\\\"\\\\#$%&'()*+,-./:;<=>?@\\\\[\\\\]^_`{|}~]+"),
-                    wordValue));
-            }
-            frecvCounter.putIfAbsent(movie, wordFrecvList);
-        }
-
-        for(Movie movieA : frecvCounter.keySet()) {
-            for(Movie movieB : frecvCounter.keySet()) {
-                if(movieA.getId().equals(movieB.getId())) {
+                if(movieA.getId() >= movieB.getId()) {
                     continue;
                 }
+
+                Set<String> allWords = new HashSet<>();
+                allWords.addAll(data.get(movieA));
+                allWords.addAll(data.get(movieB));
+
+                List<Integer> movieAFreqCounter = new ArrayList<>();
+                List<Integer> movieBFreqCounter = new ArrayList<>();
+
+                for (String wordValue : allWords) {
+                    movieAFreqCounter.add(countOccurrences(
+                        movieA.getPlot().split("[ !\\\"\\\\#$%&'()*+,-./:;<=>?@\\\\[\\\\]^_`{|}~]+"),
+                        wordValue));
+                }
+
+                for (String wordValue : allWords) {
+                    movieBFreqCounter.add(countOccurrences(
+                        movieB.getPlot().split("[ !\\\"\\\\#$%&'()*+,-./:;<=>?@\\\\[\\\\]^_`{|}~]+"),
+                        wordValue));
+                }
+
                 Similarity similarity = new Similarity();
                 similarity.setMovieA(movieA);
                 similarity.setMovieB(movieB);
-                similarity.setValue(calculateCosinesSimilarity(frecvCounter.get(movieA), frecvCounter.get(movieB)));
+                BigDecimal similarityValue = calculateCosinesSimilarity(movieAFreqCounter, movieBFreqCounter);
+                similarity.setValue(similarityValue);
                 similarityRepository.save(similarity);
+
+                Similarity similarityTwo = new Similarity();
+                similarityTwo.setMovieB(movieA);
+                similarityTwo.setMovieA(movieB);
+                similarityTwo.setValue(similarityValue);
+                similarityRepository.save(similarityTwo);
             }
         }
 

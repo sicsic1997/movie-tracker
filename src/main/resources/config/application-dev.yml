@@ -36,12 +36,12 @@ spring:
             indent-output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-#        url: jdbc:sqlserver://localhost:1433;database=MovieTracker
-#        username: sa
-#        password: parola
-        url: jdbc:sqlserver://movie-tracker.database.windows.net;database=MovieTracker
-        username: movie-tracker-admin
-        password: passwordForProtection1234
+        url: jdbc:sqlserver://localhost:1433;database=MovieTracker
+        username: sa
+        password: parola
+#        url: jdbc:sqlserver://movie-tracker.database.windows.net;database=MovieTracker
+#        username: movie-tracker-admin
+#        password: passwordForProtection1234
         hikari:
             poolName: Hikari
             auto-commit: false
