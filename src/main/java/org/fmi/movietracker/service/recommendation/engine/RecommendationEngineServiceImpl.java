@@ -46,10 +46,10 @@ public class RecommendationEngineServiceImpl {
 
     }
 
-    private int countOccurrences(String[] list, String item) {
+    private int countOccurrences(List<String> list, String item) {
         int counter = 0;
-        for(int i = 0; i < list.length; i ++) {
-            if(list[i].toLowerCase().equals(item.toLowerCase())) {
+        for(int i = 0; i < list.size(); i ++) {
+            if(list.get(i).toLowerCase().equals(item.toLowerCase())) {
                 counter ++;
             }
         }
@@ -73,13 +73,13 @@ public class RecommendationEngineServiceImpl {
 
                 for (String wordValue : allWords) {
                     movieAFreqCounter.add(countOccurrences(
-                        movieA.getPlot().split("[ !\\\"\\\\#$%&'()*+,-./:;<=>?@\\\\[\\\\]^_`{|}~]+"),
+                        data.get(movieA),
                         wordValue));
                 }
 
                 for (String wordValue : allWords) {
                     movieBFreqCounter.add(countOccurrences(
-                        movieB.getPlot().split("[ !\\\"\\\\#$%&'()*+,-./:;<=>?@\\\\[\\\\]^_`{|}~]+"),
+                        data.get(movieB),
                         wordValue));
                 }
 
